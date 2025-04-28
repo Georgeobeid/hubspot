@@ -2,6 +2,7 @@ package com.george.hubspot.service;
 
 import com.george.hubspot.exception.*;
 import com.george.hubspot.model.dto.ContactDTO;
+import com.george.hubspot.model.dto.HubspotWebhookEventDTO;
 import com.george.hubspot.model.dto.OAuthTokenResponseDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -13,6 +14,7 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -125,8 +127,8 @@ public class HubspotService {
         }
     }
 
-    public void processWebhookEvent(Map<String, Object> webhookEvent) {
-        System.out.println("Webhook recebido: " + webhookEvent);
+    public void processWebhookEvent(List<HubspotWebhookEventDTO> payload) {
+        System.out.println("Webhook recebido: " + payload);
     }
 
 

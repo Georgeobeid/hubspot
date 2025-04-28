@@ -1,6 +1,7 @@
 package com.george.hubspot.controller;
 
 import com.george.hubspot.model.dto.ContactDTO;
+import com.george.hubspot.model.dto.HubspotWebhookEventDTO;
 import com.george.hubspot.service.HubspotService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -41,8 +43,8 @@ public class ContactController {
 
 
     @PostMapping("/webhook")
-    public ResponseEntity<String> receiveWebhook(@RequestBody Map<String, Object> webhookEvent) {
-        hubspotService.processWebhookEvent(webhookEvent);
+    public ResponseEntity<String> receiveWebhook(@RequestBody List<HubspotWebhookEventDTO> payload) {
+        hubspotService.processWebhookEvent(payload);
         return ResponseEntity.ok("Evento recebido com sucesso!");
     }
 }
