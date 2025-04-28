@@ -2,6 +2,7 @@ package com.george.hubspot.service;
 
 import com.george.hubspot.exception.*;
 import com.george.hubspot.model.dto.ContactDTO;
+import com.george.hubspot.model.dto.OAuthTokenResponseDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -69,16 +70,16 @@ public class HubspotService {
 
 
         try {
-            ResponseEntity<Map> response = restTemplate.exchange(
+            ResponseEntity<OAuthTokenResponseDTO> response = restTemplate.exchange(
                     tokenUri,
                     HttpMethod.POST,
                     request,
-                    Map.class
+                    OAuthTokenResponseDTO.class
             );
 
-            Map<String, Object> responseBody = response.getBody();
-            if (responseBody != null && responseBody.containsKey("access_token")) {
-                this.accessToken = (String) responseBody.get("access_token");
+            OAuthTokenResponseDTO responseBody = response.getBody();
+            if (responseBody != null && responseBody.access_token() != null) {
+                this.accessToken = responseBody.access_token();
                 return this.accessToken;
             } else {
                 throw new OAuthAuthenticationException("Access token não encontrado na resposta.");

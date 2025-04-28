@@ -42,7 +42,6 @@ public class ContactController {
 
     @PostMapping("/webhook")
     public ResponseEntity<String> receiveWebhook(@RequestBody Map<String, Object> webhookEvent) {
-        // Processar o evento recebido
         hubspotService.processWebhookEvent(webhookEvent);
         return ResponseEntity.ok("Evento recebido com sucesso!");
     }
