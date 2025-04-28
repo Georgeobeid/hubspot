@@ -1,6 +1,6 @@
 package com.george.hubspot.controller;
 
-import com.george.hubspot.model.Contact;
+import com.george.hubspot.model.dto.ContactDTO;
 import com.george.hubspot.service.HubspotService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -30,11 +30,11 @@ public class ContactController {
                     @ApiResponse(
                             responseCode = "200",
                             description = "Contato criado com sucesso",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Contact.class))
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ContactDTO.class))
                     )
             }
     )
-    public ResponseEntity<String> createContact(@RequestBody Map<String, Object> contactData) {
+    public ResponseEntity<String> createContact(@RequestBody ContactDTO contactData) {
         hubspotService.createContact(contactData);
         return ResponseEntity.ok("Contato criado com sucesso!");
     }
