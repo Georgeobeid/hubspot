@@ -156,5 +156,6 @@ As dependências foram adicionadas ao `build.gradle`, e as anotações como `@Op
 - Manipular o Token de forma mais segura e mais eficiente (Guardar num banco de dados ou Redis)
 - Implementar testes unitários e testes de integração
 - Completar a implementação do Swagger
+- Implementar Lombok
 
 Desenvolvido por [George Obeid](https://github.com/Georgeobeid) 💻
