@@ -1,4 +1,4 @@
-# HubSpotApplication Integration API
+# HubSpot Integration API
 
 Este projeto é uma API REST construída em Java utilizando Spring Boot para integração com o HubSpot CRM.  
 O sistema implementa o fluxo OAuth 2.0 para autenticação, criação de contatos e recebimento de eventos via Webhooks.
