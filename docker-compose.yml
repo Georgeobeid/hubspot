@@ -7,4 +7,3 @@ services:
     environment:
       - HUBSPOT_CLIENT_ID=CLIENT_ID_DA_SUA_APLICACAO
       - HUBSPOT_CLIENT_SECRET=CLIENT_SECRET_DA_SUA_APLICACAO
-      - HUBSPOT_REDIRECT_URI=http://localhost:8080/oauth/callback

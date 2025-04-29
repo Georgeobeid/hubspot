@@ -50,6 +50,8 @@ Antes de começar, você precisará ter os seguintes itens instalados na sua má
 - **Java 17**.
 - **Docker** e **Docker Compose**.
 - **Gradle** (opcional, caso queira rodar o projeto fora do Docker).
+- **Postman** ferramenta usada para testar APIs REST
+- **Ngrok**
 - **Conta de desenvolvedor no HubSpot** com credenciais OAuth
 ---
 
@@ -68,7 +70,6 @@ cd hubspot
 |-------------------------|---------------------------------------------------------------------------------------------|
 | `HUBSPOT_CLIENT_ID`     | ID da sua aplicação no HubSpot                                                              |
 | `HUBSPOT_CLIENT_SECRET` | Chave secreta da sua aplicação HubSpot                                                      |
-| `HUBSPOT_REDIRECT_URI`  | URL de redirecionamento configurada no HubSpot (deve bater com o callback da sua aplicação) |
 
 ⚠️ **Aviso Importante de Segurança**:  
 Essas credenciais são sensíveis. Se recomenda usar um arquivo `.env` ao invés de hardcodar nos arquivos de configuração.
@@ -81,12 +82,35 @@ Use o Docker Compose para construir e executar os contêineres da aplicação:
 ```bash
 docker-compose up --build
 ```
+### 4. Instale o Ngrok e configure
 
-### 3. Acesse a Aplicação
+Este passo é necessário para expor localmente sua aplicação backend na internet, pois os webhooks da conta de desenvolvedor do HubSpot enviam requisições via HTTPS, o que não é possível se comunicar diretamente pelo localhost.
 
-A aplicação estará disponível [aqui](http://localhost:8080).
+Sem essa exposição via HTTPS, os webhooks do HubSpot não conseguirão se comunicar com sua aplicação local.
 
----
+Com o Ngrok em execução, você pode copiar a URL HTTPS gerada e inseri-la na configuração dos webhooks da sua conta HubSpot.
+
+
+### 5. Acesse a Aplicação e rode o fluxo completo
+
+Para iniciar o fluxo de autenticação OAuth com o HubSpot, siga os passos abaixo:
+
+- Gerar a URL de Autorização:
+Acesse o seguinte endpoint em seu navegador para gerar a URL de autorização:
+http://localhost:8080/oauth/authorize
+
+- Autorizar a Aplicação:
+Ao acessar o endpoint acima, uma nova URL será exibida. Essa URL deve ser copiada e acessada no navegador. Ela redirecionará para o HubSpot, onde você deverá conceder permissão à aplicação.
+
+- Receber o Código de Autorização:
+Após a autorização, o HubSpot redirecionará automaticamente para um segundo endpoint da aplicação, que é responsável por receber o código de autorização e trocá-lo por um access token. O token será exibido no navegador e armazenado temporariamente em uma variável da aplicação.
+
+- Consumir os Endpoints Protegidos:
+Com o access token obtido, você já pode fazer requisições autenticadas. Por exemplo, é possível criar um novo contato usando o Postman.
+Consulte a documentação Swagger do projeto (próxima etapa) para visualizar todos os endpoints disponíveis e os respectivos DTOs.
+
+⚠️ Atenção: O access token é armazenado apenas em memória. Ou seja, ao reiniciar a aplicação, o token será perdido e o processo de autenticação deverá ser reiniciado desde o início.
+
 
 ---
 
@@ -128,6 +152,6 @@ As dependências foram adicionadas ao `build.gradle`, e as anotações como `@Op
 - Implementar MapStruct (caso necessário)
 - Implementar novas exceções caso necessário
 - Implementar Log4j parae remover os System.out.println
-- Manipular o Token de forma mais segura e mais eficiente
-- Implementar testes unitários, testes de integração
+- Manipular o Token de forma mais segura e mais eficiente (Guardar num banco de dados ou Redis)
+- Implementar testes unitários e testes de integração
 - Completar a implementação do Swagger
