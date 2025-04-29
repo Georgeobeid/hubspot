@@ -40,6 +40,7 @@ O sistema implementa o fluxo OAuth 2.0 para autenticação, criação de contato
 - SOLID
 - DTO 
 - Exception Handling
+- MVC
 
 ---
 
