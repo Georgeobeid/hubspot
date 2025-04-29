@@ -73,7 +73,7 @@ cd hubspot
 | `HUBSPOT_CLIENT_SECRET` | Chave secreta da sua aplicação HubSpot                                                      |
 
 ⚠️ **Aviso Importante de Segurança**:  
-Essas credenciais são sensíveis. Se recomenda usar um arquivo `.env` ao invés de hardcodar nos arquivos de configuração.
+Essas credenciais são sensíveis.
 
 
 ### 3. Construa e Execute os Contêineres
