@@ -152,7 +152,7 @@ As dependências foram adicionadas ao `build.gradle`, e as anotações como `@Op
 ## 🚀 Possíveis Melhorias
 - Implementar MapStruct (caso necessário)
 - Implementar novas exceções caso necessário
-- Implementar Log4j parae remover os System.out.println
+- Implementar Log4j ou SLF4J e remover os System.out.println
 - Manipular o Token de forma mais segura e mais eficiente (Guardar num banco de dados ou Redis)
 - Implementar testes unitários e testes de integração
 - Completar a implementação do Swagger
